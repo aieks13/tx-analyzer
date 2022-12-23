@@ -13,10 +13,14 @@ class Database:
             format='{time}:{level}:{message}'
         )
         self.connection = sqlite3.connect(database='database.sql')
-        self.connection.cursor().execute("""CREATE TABLE IF NOT EXISTS "users" (
-                                            "user_id"	INTEGER NOT NULL UNIQUE,
+        self.connection.cursor().execute("""CREATE TABLE IF NOT EXISTS "users"
+                                            ("user_id"	INTEGER NOT NULL UNIQUE,
                                             "date"	TEXT NOT NULL,
                                             "language"	TEXT)""")
+        self.connection.cursor().execute("""CREATE TABLE IF NOT EXISTS "wallets"
+                                            ("user_id" INTEGER NOT NULL,
+                                            "address"	TEXT NOT NULL,
+                                            "label"	TEXT)""")
         self.connection.commit()
 
     async def execute(
@@ -112,6 +116,10 @@ class Database:
             sql, params, ' address list getting', fetchall=True
         )
         return result if result else None
+
+    async def count_user_addresses(self, user_id: int) -> int:
+        result = await self.get_address_list(user_id)
+        return len(result) if result else 0
 
     async def remove_address(self, user_id: int, address: str):
         sql = """DELETE FROM 'wallets' WHERE (user_id, address) = (?, ?)"""

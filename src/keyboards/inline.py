@@ -35,3 +35,18 @@ back_to_settings_button = InlineKeyboardButton(_('BACK'),
                                                callback_data='back-to-settings')
 modified_lang_keyboard.add(en_lang_button, ru_lang_button,
                            uk_lang_button, back_to_settings_button)
+
+
+wallets_menu_keyboard = InlineKeyboardMarkup(row_width=2)
+add_address_button = InlineKeyboardButton(_('ADD WALLET'),
+                                          callback_data='add-wallet-address')
+del_address_button = InlineKeyboardButton(_('DELETE WALLET'),
+                                          callback_data='del-wallet-address')
+wallets_menu_keyboard.add(add_address_button, del_address_button, close_button)
+
+
+modified_wallet_menu_keyboard = InlineKeyboardMarkup(row_width=1)
+back_to_addresses_menu_button = InlineKeyboardButton(
+    _('BACK'), callback_data='back-to-addresses-menu'
+)
+modified_wallet_menu_keyboard.add(back_to_addresses_menu_button)

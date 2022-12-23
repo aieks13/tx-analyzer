@@ -15,5 +15,9 @@ class Settings(BaseSettings):
     BASE_DIR: Path = Path(__file__).parent
     LOCALES_DIR: Path = BASE_DIR / 'locales'
 
+    ADDRESSES_LIMIT_PER_USER: int = 3
+
+    PORTFOLIO_TRACKER_LINK: str = 'https://debank.com/profile'
+
 
 settings = Settings()
